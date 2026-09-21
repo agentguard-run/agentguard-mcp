@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "files": [
+    ".gitignore",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "docs/mcp-registry.md",
+    "package-lock.json",
+    "package.json",
+    "scripts/public-files.json",
+    "scripts/release-scan.mjs",
+    "server.json",
+    "src/index.ts",
+    "src/stdio-transport.ts",
+    "test/release-metadata.test.mjs",
+    "test/release-scan.test.mjs",
+    "test/smoke.mjs",
+    "tsconfig.json"
+  ]
+}

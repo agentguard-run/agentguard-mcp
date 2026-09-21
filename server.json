@@ -1,0 +1,211 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.MerchantGuard/agentguard",
+  "title": "AgentGuard",
+  "description": "Local spend caps, kill-switch blocking and Ed25519-signed receipts for AI agent tool calls.",
+  "version": "0.3.1",
+  "websiteUrl": "https://agentguard.run",
+  "repository": {
+    "url": "https://github.com/MerchantGuard/agentguard-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@agentguard-run/mcp",
+      "version": "0.3.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "npx",
+      "environmentVariables": [
+        {
+          "name": "AGENTGUARD_MCP_DAILY_CAP_CENTS",
+          "description": "Local daily spend cap in cents. A nonnegative integer.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "number",
+          "default": "500"
+        },
+        {
+          "name": "AGENTGUARD_MCP_PER_CALL_CAP_CENTS",
+          "description": "Local per-call spend cap in cents. A nonnegative integer.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "number",
+          "default": "100"
+        },
+        {
+          "name": "AGENTGUARD_MCP_TENANT",
+          "description": "Tenant identifier stamped into local receipts.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "mcp-local"
+        },
+        {
+          "name": "AGENTGUARD_HOME",
+          "description": "Local signing-key, configuration and ledger directory. Defaults to .agentguard in the operating system home directory.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "filepath"
+        },
+        {
+          "name": "AGENTGUARD_MCP_LEDGER",
+          "description": "Local decision storage. ndjson persists receipts across restarts; memory retains this process only.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "ndjson",
+          "choices": [
+            "ndjson",
+            "memory"
+          ]
+        },
+        {
+          "name": "AGENTGUARD_MCP_DISABLE_COST_OVERRIDE",
+          "description": "Set to 1 to discard and prevent model pricing overrides for this server.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "0",
+          "choices": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "name": "AGENTGUARD_LOCK_COST_OVERRIDES",
+          "description": "Spend SDK startup lock. Set to 1 to prevent model pricing overrides.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "0",
+          "choices": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "name": "AGENTGUARD_ACTOR_DIGEST",
+          "description": "Set to 1 to hash actor identifiers before they enter local receipts.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "0",
+          "choices": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "name": "AGENTGUARD_LICENSE_KEY",
+          "description": "Optional AgentGuard license key for license validation and seat registration. Otherwise read from local configuration.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "AGENTGUARD_LICENSE_ENDPOINT",
+          "description": "License and seat service base URL. No prompts, tool content or receipts are sent.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "https://agentguard.run"
+        },
+        {
+          "name": "AGENTGUARD_NO_BEACON",
+          "description": "Set to 1 to disable optional activation telemetry regardless of saved consent.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "0",
+          "choices": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "name": "AGENTGUARD_TELEMETRY",
+          "description": "Set to 1 to opt in to content-free activation telemetry. Otherwise saved consent applies, default off.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "0",
+          "choices": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "name": "AGENTGUARD_INSTALL_ID",
+          "description": "Optional identifier used only by opted-in activation telemetry when no saved install identifier exists.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "AGENTGUARD_ANONYMOUS_INSTALL_ID",
+          "description": "Legacy fallback for AGENTGUARD_INSTALL_ID in opted-in activation telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "CI",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "GITHUB_ACTIONS",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "GITLAB_CI",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "CIRCLECI",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "BUILDKITE",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "VERCEL",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "NETLIFY",
+          "description": "Existing runtime marker. A nonempty value marks opted-in activation telemetry as CI; it does not enable telemetry.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "description": "Local spend caps, kill-switch blocking and Ed25519-signed receipts for AI agent tool calls. Runs on the developer's machine. Zero data plane: prompts and tool calls never pass through this server."
+    }
+  }
+}
