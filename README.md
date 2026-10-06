@@ -1,5 +1,7 @@
 # @agentguard-run/mcp
 
+[![smithery badge](https://smithery.ai/badge/agentguard-run/agentguard)](https://smithery.ai/servers/agentguard-run/agentguard)
+
 AgentGuard® as an MCP server: local spend caps and Ed25519-signed provenance receipts for AI agent actions, usable from any Model Context Protocol host (Claude Desktop, Claude Code, Cursor, Cline, or your own agent runtime).
 
 **Zero data plane.** Tools accept metadata only: model names, token counts, endpoint URLs. Prompts and completions never pass through this server, and their content stays on your machine. Receipts are content-free.
